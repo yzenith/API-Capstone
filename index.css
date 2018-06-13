@@ -1,0 +1,64 @@
+* {
+	font-family: 'Slabo 27px', serif;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+body {
+	max-width: 1000px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 0 auto;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	transition-timing-function: linear;
+	color: #388E8E;
+	text-decoration: underline;
+}
+
+/*responsive grid css*/
+.content-body::before,
+.content-body::after {
+	display: "table";
+	padding-left: 1.041666666%;
+	padding-right: 1.041666666%;
+	margin: 0 auto;
+}
+.col-12 {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid gray;
+	margin: 5px;
+}
+
+/*layout css*/
+nav {
+	width: 100%;
+	padding: 15px;
+
+}
+nav .bar-icon {
+	float: right;
+}
+nav .search-place {
+	width: 100%;
+	height: 15%;
+	padding: 15px;
+	text-align: center;
+	display: none;
+}
+nav .search-place label {
+	display: block;
+}
+nav .search-place #search-term {
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+/*API content area css*/
+main {
+	width: 100%;
+	height: 100%;
+}
