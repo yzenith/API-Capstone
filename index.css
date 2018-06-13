@@ -30,7 +30,7 @@ a:hover {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid gray;
-	margin: 5px;
+	margin-top: 5px;
 }
 
 /*layout css*/
@@ -61,4 +61,13 @@ nav .search-place #search-term {
 main {
 	width: 100%;
 	height: 100%;
+}
+main .quotes-area .content {
+	padding: 10px;
+}
+main .quotes-area .author{
+	display: block;
+}
+main .quotes-area button[type=submit] {
+	display: block;
 }
