@@ -41,6 +41,7 @@ function showQuotes(quotes_Obj) {
 	$('.quotes-area').html(
 		`<div class="quotes">
 			<q class="content">${quotes_Obj.quote}</q>
+			<p>${quotes_Obj.cat}</p>
 			<span class="author"> <i class="fas fa-user"></i>${quotes_Obj.author}</span>
 			<button type="submit" class="nextQuotes">Next <i class="fas fa-arrow-right"></i></button>
 		</div>`
@@ -48,7 +49,7 @@ function showQuotes(quotes_Obj) {
 }
 function nextQuotes(){
 
-	$('.nextQuotes').on('click',function(event){
+	$('.quotes-area').on('click','.nextQuotes',function(event){
 		event.preventDefault();
 		getQuotesFromAPI(showQuotes);
 	})
