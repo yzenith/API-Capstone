@@ -13,7 +13,7 @@ const weatherQuery = {
 // newsAPI setting
 const newsQuery = {
 	apiKey: '5832566e9e104b6aa1e8411c576f83c5',
-	q: 'plano',
+	q: 'food',
 	pageSize: 5,
 	// country: 'us',
 	page: 10,
@@ -42,9 +42,17 @@ function showQuotes(quotes_Obj) {
 		`<div class="quotes">
 			<q class="content">${quotes_Obj.quote}</q>
 			<span class="author"> <i class="fas fa-user"></i>${quotes_Obj.author}</span>
-			<button type="submit">Next <i class="fas fa-arrow-right"></i></button>
+			<button type="submit" class="nextQuotes">Next <i class="fas fa-arrow-right"></i></button>
 		</div>`
 		);
+}
+function nextQuotes(){
+
+	$('.nextQuotes').on('click',function(event){
+		event.preventDefault();
+		getQuotesFromAPI(showQuotes);
+	})
+
 }
 
 // weather API section
@@ -82,6 +90,18 @@ function showWeather(data) {
 	
 }
 
+function searchCity() {
+
+	$('button[type=submit]').on('click',function(event){
+		event.preventDefault();
+		const searchTerm = $('#search-term').val();
+		weatherQuery.q = searchTerm;
+		getWeatherFromAPI(showWeather);
+	})
+
+}
+
+
 // news API
 function getDataFromNewsAPI(callback) {
 	const newsEndPoint = 'https://newsapi.org/v2/everything';
@@ -104,7 +124,8 @@ function loadfunctions() {
 	// getLatAndLon();
 	getWeatherFromAPI(showWeather);
 	getDataFromNewsAPI(showNews);
-	
+	searchCity();
+	nextQuotes();
 
 }
 
