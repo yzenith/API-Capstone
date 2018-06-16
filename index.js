@@ -1,8 +1,7 @@
 'use strict';
 
-const query = {
-	lat: 33,
-	lon: -97,
+const weatherQuery = {
+	q: 'plano',
 	type: 'accurate',
 	lang: 'en',
 	APPID: '7fd64bea57746b38d50d97687525f21a',
@@ -10,6 +9,17 @@ const query = {
 	units: 'imperial',
 
 }
+
+// newsAPI setting
+const newsQuery = {
+	apiKey: '5832566e9e104b6aa1e8411c576f83c5',
+	q: 'plano',
+	pageSize: 5,
+	// country: 'us',
+	page: 10,
+	sortBy: 'relevancy',	
+}
+
 
 // click bar icon to toggle show search form
 function toggleHideBar() {
@@ -40,20 +50,20 @@ function showQuotes(quotes_Obj) {
 // weather API section
 function getWeatherFromAPI(callback) {
 	const weatherEndPiont = `https://api.openweathermap.org/data/2.5/weather`;
-	$.getJSON(weatherEndPiont,query,callback);
+	$.getJSON(weatherEndPiont,weatherQuery,callback);
 }
-function getLatAndLon() {
-	// get location Object
-	if(navigator.geolocation){
+// function getLatAndLon() {
+// 	// get location Object
+// 	if(navigator.geolocation){
 
-		navigator.geolocation.getCurrentPosition(function(position) { 
-		  query.lat = Math.round(position.coords.latitude);
-		  query.lon = Math.round(position.coords.longitude);
-		});
+// 		navigator.geolocation.getCurrentPosition(function(position) { 
+// 		  weatherQuery.lat = Math.round(position.coords.latitude);
+// 		  weatherQuery.lon = Math.round(position.coords.longitude);
+// 		});
 
-	}
+// 	}
 	
-}
+// }
 
 function showWeather(data) {
 
@@ -67,17 +77,34 @@ function showWeather(data) {
 						<p>wind: ${data.wind.speed}</p>
 						<a href="https://openweathermap.org/current">open weather map API</a>
 					 </div>`;
+
 	$('.weather-area').html(results);
 	
 }
+
+// news API
+function getDataFromNewsAPI(callback) {
+	const newsEndPoint = 'https://newsapi.org/v2/everything';
+
+	$.getJSON(newsEndPoint,newsQuery,callback);
+}
+
+function showNews(Obj) {
+	console.log(Obj);
+}
+
+
+
 
 
 // load functions
 function loadfunctions() {
 	toggleHideBar();
 	getQuotesFromAPI(showQuotes);
-	getLatAndLon();
+	// getLatAndLon();
 	getWeatherFromAPI(showWeather);
+	getDataFromNewsAPI(showNews);
+	
 
 }
 
