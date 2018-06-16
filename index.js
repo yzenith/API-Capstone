@@ -10,16 +10,6 @@ const weatherQuery = {
 
 }
 
-// newsAPI setting
-const newsQuery = {
-	apiKey: '5832566e9e104b6aa1e8411c576f83c5',
-	q: 'food',
-	pageSize: 5,
-	// country: 'us',
-	page: 10,
-	sortBy: 'relevancy',	
-}
-
 
 // click bar icon to toggle show search form
 function toggleHideBar() {
@@ -41,8 +31,7 @@ function showQuotes(quotes_Obj) {
 	$('.quotes-area').html(
 		`<div class="quotes">
 			<q class="content">${quotes_Obj.quote}</q>
-			<p>${quotes_Obj.cat}</p>
-			<span class="author"> <i class="fas fa-user"></i>${quotes_Obj.author}</span>
+			<span class="author"> <i class="fas fa-user"></i>\'${quotes_Obj.author}\' said on ${quotes_Obj.cat}</span>
 			<button type="submit" class="nextQuotes">Next <i class="fas fa-arrow-right"></i></button>
 		</div>`
 		);
@@ -59,7 +48,10 @@ function nextQuotes(){
 // weather API section
 function getWeatherFromAPI(callback) {
 	const weatherEndPiont = `https://api.openweathermap.org/data/2.5/weather`;
-	$.getJSON(weatherEndPiont,weatherQuery,callback);
+	$.getJSON(weatherEndPiont,weatherQuery,callback).fail(function(error){
+		alert(error.responseJSON.message);
+		$('#search-term').val('');
+	});
 }
 // function getLatAndLon() {
 // 	// get location Object
@@ -76,18 +68,17 @@ function getWeatherFromAPI(callback) {
 
 function showWeather(data) {
 
-	console.log(data);
+	console.log('inside show weather', data);
+		const results = `<div>
+							<p>${data.name},${data.sys.country}</p>
+							<p>${data.main.temp} °F</p>
+							<p>humidity: ${data.main.humidity}</p>
+							<p>${data.weather[0].description}</p>
+							<p>wind: ${data.wind.speed}</p>
+							<a href="https://openweathermap.org/current">open weather map API</a>
+						 </div>`;
 
-	const results = `<div>
-						<p>${data.name},${data.sys.country}</p>
-						<p>${data.main.temp} °F</p>
-						<p>humidity: ${data.main.humidity}</p>
-						<p>${data.weather[0].description}</p>
-						<p>wind: ${data.wind.speed}</p>
-						<a href="https://openweathermap.org/current">open weather map API</a>
-					 </div>`;
-
-	$('.weather-area').html(results);
+		$('.weather-area').html(results);
 	
 }
 
@@ -98,21 +89,11 @@ function searchCity() {
 		const searchTerm = $('#search-term').val();
 		weatherQuery.q = searchTerm;
 		getWeatherFromAPI(showWeather);
+
 	})
 
 }
 
-
-// news API
-function getDataFromNewsAPI(callback) {
-	const newsEndPoint = 'https://newsapi.org/v2/everything';
-
-	$.getJSON(newsEndPoint,newsQuery,callback);
-}
-
-function showNews(Obj) {
-	console.log(Obj);
-}
 
 
 
@@ -124,7 +105,6 @@ function loadfunctions() {
 	getQuotesFromAPI(showQuotes);
 	// getLatAndLon();
 	getWeatherFromAPI(showWeather);
-	getDataFromNewsAPI(showNews);
 	searchCity();
 	nextQuotes();
 
