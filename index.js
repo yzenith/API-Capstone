@@ -1,5 +1,7 @@
 'use strict';
 
+let weatherObject = {};
+
 const weatherQuery = {
 	q: 'plano',
 	type: 'accurate',
@@ -31,7 +33,7 @@ function showQuotes(quotes_Obj) {
 	$('.quotes-area').html(
 		`<div class="quotes">
 			<q class="content">${quotes_Obj.quote}</q>
-			<span class="author"> <i class="fas fa-user"></i>\'${quotes_Obj.author}\' said on ${quotes_Obj.cat}</span>
+			<span class="author"> <i class="fas fa-user"></i>\'${quotes_Obj.author}\' talk about: ${quotes_Obj.cat}</span>
 			<button type="submit" class="nextQuotes">Next <i class="fas fa-arrow-right"></i></button>
 		</div>`
 		);
@@ -68,14 +70,27 @@ function getWeatherFromAPI(callback) {
 
 function showWeather(data) {
 
+	weatherObject = data;
+	weatherObject.sys.sunriseFormat = new Date(weatherObject.sys.sunrise).toString().substr(15,16);
+	weatherObject.sys.sunsetFormat = new Date(weatherObject.sys.sunset).toString().substr(15,16);
 	console.log('inside show weather', data);
-		const results = `<div>
-							<p>${data.name},${data.sys.country}</p>
-							<p>${data.main.temp} °F</p>
-							<p>humidity: ${data.main.humidity}</p>
-							<p>${data.weather[0].description}</p>
-							<p>wind: ${data.wind.speed}</p>
-							<a href="https://openweathermap.org/current">open weather map API</a>
+		const results = `<div class="weather-block">
+							<p class="city-name"><i class="fas fa-map-marker"></i> ${data.name},${data.sys.country}</p>
+							<hr>
+							<div class="weather-icon">
+								<p class="weather-image"><img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${data.weather[0].icon}"></p>
+								<p class="weather-description">${data.weather[0].description}</p>
+							</div>
+							<div class="weather-detail">
+								<p class="main-temp"><span class="temp-to-change">${data.main.temp}</span> <a class="temp-symbol" href="#">°F</a></p>
+								<p>Max: ${data.main.temp_max}</p>
+								<p>Min: ${data.main.temp_min}</p>
+								<p class="humidity">humidity: ${data.main.humidity}</p>
+								<p class="wind">wind: ${data.wind.speed}</p>
+								<p>sunrise: ${weatherObject.sys.sunriseFormat}</p>
+								<p>sunset: ${weatherObject.sys.sunsetFormat}</p>
+							</div>
+							<a href="https://openweathermap.org/current" class="API-provider">open weather map API</a>
 						 </div>`;
 
 		$('.weather-area').html(results);
@@ -94,7 +109,29 @@ function searchCity() {
 
 }
 
+function changeTempAndSymbol() {
+	$('.weather-area').on('click','.temp-symbol',function(event){
+		event.preventDefault();
+		if( $('.temp-symbol').text() === '°F' ){
+			$('.temp-symbol').html('°C');
+			// console.log( parseInt( $('.temp-to-change').html() ) );
+			const CTemp = FtoC( parseInt( $('.temp-to-change').html() ) );
+			$('.temp-to-change').html(CTemp);
+		}else{
+			$('.temp-symbol').html('°F');
+			const FTemp = CtoF( parseInt( $('.temp-to-change').html() ) );
+			$('.temp-to-change').html(FTemp);
+		}
+	})
+}
 
+function FtoC(degree) {
+	return (degree-32) / 1.8;
+}
+
+function CtoF(degree) {
+	return degree * 1.8 + 32;
+}
 
 
 
@@ -107,6 +144,7 @@ function loadfunctions() {
 	getWeatherFromAPI(showWeather);
 	searchCity();
 	nextQuotes();
+	changeTempAndSymbol();
 
 }
 
