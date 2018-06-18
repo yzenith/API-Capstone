@@ -29,7 +29,7 @@ a:hover {
 .col-12 {
 	width: 100%;
 	padding: 10px;
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
 	margin-top: 5px;
 }
 
@@ -62,12 +62,72 @@ main {
 	width: 100%;
 	height: 100%;
 }
-main .quotes-area .content {
-	padding: 10px;
+main .quotes-area .quotes {
+	padding: 8px;
 }
+main .quotes-area .content {
+	padding: 15px;
+	text-align: left;
+	margin-bottom: 10px;
+}
+main .quotes-area .content::after {
+	display: table;
+	content: '';
+	clear: both;
+}
+
 main .quotes-area .author{
-	display: block;
+	display: inline-block;
+	float: left;
+	text-align: right;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 main .quotes-area button[type=submit] {
-	display: block;
+	display: inline-block;
+	float: right;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+/*weather area css*/
+.weather-area .weather-block {
+	padding: 2px;
+}
+.weather-area .weather-block .city-name {
+	text-align: center;
+	font-size: 25px;
+}
+.weather-area .weather-block .weather-icon {
+	width: 40%;
+	float: left;
+	padding: 5px;
+}
+.weather-area .weather-block .weather-icon .weather-image img{
+	width: 100%;
+}
+.weather-area .weather-block .weather-icon .weather-description {
+	text-align: center;
+	font-weight: 600;
+}
+.weather-area .weather-block .weather-detail {
+	width: 60%;
+	float: right;
+	text-align: center;
+	font-size: 6px;
+	margin-bottom: 8px;
+}
+.weather-area .weather-block .weather-detail .temp-detail {
+	text-align: left;
+	width: 40%;
+	float: left;
+}
+.weather-area .weather-block .weather-detail .temp-detail .main-temp .temp-to-change{
+	font-size: 25px;
+	font-weight: 600;
+}
+.weather-area .weather-block .weather-detail .other-detail {
+	text-align: right;
+	width: 60%;
+	float: right;
 }

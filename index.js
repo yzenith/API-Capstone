@@ -33,7 +33,7 @@ function showQuotes(quotes_Obj) {
 	$('.quotes-area').html(
 		`<div class="quotes">
 			<q class="content">${quotes_Obj.quote}</q>
-			<span class="author"> <i class="fas fa-user"></i>\'${quotes_Obj.author}\' talk about: ${quotes_Obj.cat}</span>
+			<span class="author"> <i class="fas fa-user"></i>(${quotes_Obj.author}) on: \"${quotes_Obj.cat}\"</span>
 			<button type="submit" class="nextQuotes">Next <i class="fas fa-arrow-right"></i></button>
 		</div>`
 		);
@@ -82,15 +82,23 @@ function showWeather(data) {
 								<p class="weather-description">${data.weather[0].description}</p>
 							</div>
 							<div class="weather-detail">
-								<p class="main-temp"><span class="temp-to-change">${data.main.temp}</span> <a class="temp-symbol" href="#">°F</a></p>
-								<p>Max: ${data.main.temp_max}</p>
-								<p>Min: ${data.main.temp_min}</p>
-								<p class="humidity">humidity: ${data.main.humidity}</p>
-								<p class="wind">wind: ${data.wind.speed}</p>
-								<p>sunrise: ${weatherObject.sys.sunriseFormat}</p>
-								<p>sunset: ${weatherObject.sys.sunsetFormat}</p>
+								<div class="temp-detail">
+									<p class="main-temp"><span class="temp-to-change">${data.main.temp}</span> <a class="temp-symbol" href="#">°F</a></p>
+									<p>Max: ${data.main.temp_max} °F</p>
+									<p>Min: ${data.main.temp_min} °F</p>
+								</div>
+								<div class="other-detail">
+									<p class="clouds">Clouds: ${data.clouds.all} %</p>
+									<p class="humidity">humidity: ${data.main.humidity} %</p>
+									<p class="wind">wind: ${data.wind.speed} m/s</p>
+									<p class="presure">presure: ${data.main.pressure} hpa</p>
+
+								</div>
 							</div>
-							<a href="https://openweathermap.org/current" class="API-provider">open weather map API</a>
+							<p>sunrise: ${weatherObject.sys.sunriseFormat}</p>
+							<p>sunset: ${weatherObject.sys.sunsetFormat}</p>
+							<p class="GEO-coords">Geo coords: [lat: ${data.coord.lat},lon: ${data.coord.lon}]  <a href="https://openweathermap.org/current" class="API-provider">open weather map API</a></p>
+							
 						 </div>`;
 
 		$('.weather-area').html(results);
@@ -126,11 +134,11 @@ function changeTempAndSymbol() {
 }
 
 function FtoC(degree) {
-	return (degree-32) / 1.8;
+	return Math.round( (degree-32) / 1.8 );
 }
 
 function CtoF(degree) {
-	return degree * 1.8 + 32;
+	return Math.round( degree * 1.8 + 32 );
 }
 
 
