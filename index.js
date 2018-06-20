@@ -71,10 +71,11 @@ function getWeatherFromAPI(callback) {
 function showWeather(data) {
 
 	weatherObject = data;
-	weatherObject.sys.sunriseFormat = new Date(weatherObject.sys.sunrise).toString().substr(15,16);
-	weatherObject.sys.sunsetFormat = new Date(weatherObject.sys.sunset).toString().substr(15,16);
+	weatherObject.sys.sunriseFormat = new Date(weatherObject.sys.sunrise).toLocaleString().substr(15,16);
+	weatherObject.sys.sunsetFormat = new Date(weatherObject.sys.sunset).toLocaleString().substr(15,16);
 	console.log('inside show weather', data);
 		const results = `<div class="weather-block">
+							<div class="backgroundImage"></div>
 							<p class="city-name"><i class="fas fa-map-marker"></i> ${data.name},${data.sys.country}</p>
 							<hr>
 							<div class="weather-icon">
@@ -102,7 +103,9 @@ function showWeather(data) {
 						 </div>`;
 
 		$('.weather-area').html(results);
-	
+		const imageURL = `./images/${data.weather[0].description}.gif`;
+		console.log(imageURL);
+		$('.backgroundImage').css({'backgroundImage':`url('${imageURL}')`});
 }
 
 function searchCity() {

@@ -8,6 +8,7 @@ body {
 	padding-left: 20px;
 	padding-right: 20px;
 	margin: 0 auto;
+	background-color: #f5f5f5;
 }
 a {
 	text-decoration: none;
@@ -92,41 +93,89 @@ main .quotes-area button[type=submit] {
 
 /*weather area css*/
 .weather-area .weather-block {
+	position: relative;
 	padding: 2px;
+	color: black;
+	
+	
+	z-index: 2;
 }
-.weather-area .weather-block .city-name {
+.backgroundImage {
+	background-image: url('./images/clear sky.gif');
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+}
+.backgroundImage:before{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: '';
+	background-color: rgba(255,255,255,0.7);
+}
+/*.weather-area .weather-block:before {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255,255,255,0.7);
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+.weather-area .weather-block:after {
+	content:'';
+	background-image: url('./images/clear sky.gif');
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -2;
+}*/
+
+.city-name {
 	text-align: center;
 	font-size: 25px;
 }
-.weather-area .weather-block .weather-icon {
+.weather-icon {
 	width: 40%;
 	float: left;
 	padding: 5px;
 }
-.weather-area .weather-block .weather-icon .weather-image img{
+.weather-image img{
 	width: 100%;
 }
-.weather-area .weather-block .weather-icon .weather-description {
+.weather-description {
 	text-align: center;
 	font-weight: 600;
 }
-.weather-area .weather-block .weather-detail {
+.weather-detail {
 	width: 60%;
 	float: right;
 	text-align: center;
 	font-size: 6px;
 	margin-bottom: 8px;
 }
-.weather-area .weather-block .weather-detail .temp-detail {
+.temp-detail {
 	text-align: left;
 	width: 40%;
 	float: left;
 }
-.weather-area .weather-block .weather-detail .temp-detail .main-temp .temp-to-change{
+.temp-to-change{
 	font-size: 25px;
 	font-weight: 600;
 }
-.weather-area .weather-block .weather-detail .other-detail {
+.other-detail {
 	text-align: right;
 	width: 60%;
 	float: right;
