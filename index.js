@@ -73,6 +73,7 @@ function showWeather(data) {
 	weatherObject = data;
 	weatherObject.sys.sunriseFormat = new Date(weatherObject.sys.sunrise).toLocaleString().substr(15,16);
 	weatherObject.sys.sunsetFormat = new Date(weatherObject.sys.sunset).toLocaleString().substr(15,16);
+	const mainTemp = Math.round( data.main.temp );
 	console.log('inside show weather', data);
 		const results = `<div class="weather-block">
 							<div class="backgroundImage"></div>
@@ -84,7 +85,7 @@ function showWeather(data) {
 							</div>
 							<div class="weather-detail">
 								<div class="temp-detail">
-									<p class="main-temp"><span class="temp-to-change">${data.main.temp}</span> <a class="temp-symbol" href="#">°F</a></p>
+									<p class="main-temp"><span class="temp-to-change">${mainTemp}</span> <a class="temp-symbol" href="#">°F</a></p>
 									<p>Max: ${data.main.temp_max} °F</p>
 									<p>Min: ${data.main.temp_min} °F</p>
 								</div>
@@ -125,7 +126,7 @@ function changeTempAndSymbol() {
 		event.preventDefault();
 		if( $('.temp-symbol').text() === '°F' ){
 			$('.temp-symbol').html('°C');
-			// console.log( parseInt( $('.temp-to-change').html() ) );
+			console.log( parseInt( $('.temp-to-change').html() ) );
 			const CTemp = FtoC( parseInt( $('.temp-to-change').html() ) );
 			$('.temp-to-change').html(CTemp);
 		}else{
@@ -133,7 +134,7 @@ function changeTempAndSymbol() {
 			const FTemp = CtoF( parseInt( $('.temp-to-change').html() ) );
 			$('.temp-to-change').html(FTemp);
 		}
-	})
+	});
 }
 
 function FtoC(degree) {
