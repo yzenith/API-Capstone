@@ -94,11 +94,11 @@ function showWeather(data) {
 									<p class="humidity">humidity: ${data.main.humidity} %</p>
 									<p class="wind">wind: ${data.wind.speed} m/s</p>
 									<p class="presure">presure: ${data.main.pressure} hpa</p>
-
+									<p>sunrise: ${weatherObject.sys.sunriseFormat}</p>
+									<p>sunset: ${weatherObject.sys.sunsetFormat}</p>
 								</div>
 							</div>
-							<p>sunrise: ${weatherObject.sys.sunriseFormat}</p>
-							<p>sunset: ${weatherObject.sys.sunsetFormat}</p>
+							
 							<p class="GEO-coords">Geo coords: [lat: ${data.coord.lat},lon: ${data.coord.lon}]  <a href="https://openweathermap.org/current" class="API-provider">open weather map API</a></p>
 							
 						 </div>`;
@@ -145,6 +145,16 @@ function CtoF(degree) {
 	return Math.round( degree * 1.8 + 32 );
 }
 
+// function changeLanguage() {
+
+// 	$('.weather-area').on('change','#language',function(){
+// 		$('#language option:selected').attr('selected',true);
+// 		const choosedLanguage = $('#language option:selected').val();
+// 		weatherQuery.lang = choosedLanguage;
+// 		getWeatherFromAPI(showWeather);
+// 	})
+
+// }
 
 
 
@@ -157,6 +167,7 @@ function loadfunctions() {
 	searchCity();
 	nextQuotes();
 	changeTempAndSymbol();
+	// changeLanguage();
 
 }
 
