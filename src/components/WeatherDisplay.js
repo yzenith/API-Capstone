@@ -6,34 +6,37 @@ const WeatherDisplay = ({ data, errorMessage }) => {
   }
 
   return (
-    <div>
-      <h3>
-        City: {data.name} - {data.sys.country}
-      </h3>
-      \
-      <span>
+    <div className="ui grid container">
+      <div className="ui sixteen wide column center aligned">
+        <i class="location arrow icon"></i>
+        <span className="">
+          {data.name}, {data.sys.country}
+        </span>
+      </div>
+      <div className="four wide column">
         Latitue: {data.coord.lat}; Longitude: {data.coord.lon}
-      </span>
-      <div>
-        <h4>Weather</h4>
-        <p>{data.weather[0].main} </p>
-        <p>{data.weather[0].description} </p>
-        <span>{data.weather[0].icon} </span>
-        <h4>details</h4>
-        <span>{data.main.temp} - </span>
-        <span>{data.main.feels_like} - </span>
-        <span>{data.main.temp_min} - </span>
-        <span>{data.main.temp_max} - </span>
-        <span>{data.main.pressure} - </span>
-        <span>{data.main.humidity}</span>
-        <h4>Visibility</h4>
-        <span>{data.visibility}</span>
-        <h4>Wind</h4>
-        <span>{data.wind.speed} - </span>
-        <span>{data.wind.deg} - </span>
-        <h4>Sunrise/Sunset</h4>
-        <span>{data.sys.sunrise} - </span>
-        <span>{data.sys.sunset} - </span>
+      </div>
+      <div className="ui column">
+        Weather
+        <div className="three wide column">{data.weather[0].main} </div>
+        <div className="three wide column">{data.weather[0].description} </div>
+        <div className="three wide column">{data.weather[0].icon} </div>
+      </div>
+      <div className="ui column">
+        details
+        <div className="two wide column">{data.main.temp} </div>
+        <div className="two wide column">{data.main.feels_like} </div>
+        <div className="two wide column">{data.main.temp_min} </div>
+        <div className="two wide column">{data.main.temp_max} </div>
+        <div className="two wide column">{data.main.pressure} </div>
+        <div className="two wide column">{data.main.humidity} </div>
+      </div>
+      <div className="four wide column">{data.visibility}</div>
+      <div className="four wide column">
+        {data.wind.speed} - {data.wind.deg}
+      </div>
+      <div className="four wide column">
+        {data.sys.sunrise} - {data.sys.sunset}
       </div>
     </div>
   );
