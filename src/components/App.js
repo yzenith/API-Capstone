@@ -5,22 +5,35 @@ import WeatherDisplay from "./WeatherDisplay";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 class App extends React.Component {
-  state = { weatherData: {}, errorMessage: "" };
+  state = {
+    weatherData: {},
+    errorMessage: null,
+    unit: "imperial",
+    currentSearch: "dallas",
+  };
 
   componentDidMount() {
     // when application loading
     this.fetchWeather("dallas");
   }
 
+  selectedUnit = (selectedUnit) => {
+    this.setState({ unit: selectedUnit });
+    console.log(this.state.unit);
+    console.log(this.state.currentSearch);
+    this.fetchWeather(this.state.currentSearch);
+  };
+
   fetchWeather = async (passedTerm) => {
+    this.setState({ currentSearch: passedTerm });
     const { data } = await openWeather.get("/", {
       params: {
-        q: passedTerm,
+        q: this.state.currentSearch,
         type: "accurate",
         lang: "en",
         APPID: API_KEY,
         cnt: 7,
-        units: "imperial",
+        units: this.state.unit,
       },
     });
 
@@ -34,11 +47,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
-        <Header onUpSubmit={this.fetchWeather} />
+      <div className="ui segments">
+        {/* // have issue onUpSubmit should pass */}
+        <Header
+          onUpSubmit={(searchTerm) => {
+            this.setState({ currentSearch: searchTerm });
+            this.fetchWeather(this.state.currentSearch);
+          }}
+        />
         <WeatherDisplay
           data={this.state.weatherJSON}
-          error={this.state.errorMessage}
+          selectedUnit={this.selectedUnit}
         />
       </div>
     );

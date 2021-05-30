@@ -14,7 +14,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="ui stackable container menu">
+      <div className="ui stackable container menu segment">
         <div className="left item">
           <i aria-hidden="true" className="sun icon"></i>
           <span>Weather App</span>
@@ -22,11 +22,12 @@ class Header extends React.Component {
         <div className="right menu">
           <form className="earch-bar ui " onSubmit={this.onFormSubmit}>
             <div className="ui action left icon input">
-              <i className="search icon"></i>
+              <i className="building icon"></i>
               <input
                 type="text"
                 value={this.state.searchTerm}
                 onChange={this.getSearchTerm}
+                placeholder={this.state.searhTerm}
               ></input>
               <button type="submit" className="ui button primary">
                 Submit
