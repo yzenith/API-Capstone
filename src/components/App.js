@@ -9,7 +9,7 @@ class App extends React.Component {
     weatherData: {},
     errorMessage: null,
     unit: "imperial",
-    currentSearch: "dallas",
+    currentSearch: "",
   };
 
   componentDidMount() {
@@ -28,7 +28,7 @@ class App extends React.Component {
     this.setState({ currentSearch: passedTerm });
     const { data } = await openWeather.get("/", {
       params: {
-        q: this.state.currentSearch,
+        q: passedTerm,
         type: "accurate",
         lang: "en",
         APPID: API_KEY,
@@ -41,7 +41,9 @@ class App extends React.Component {
       weatherJSON: data,
     });
 
-    console.log(`passed term is: ${passedTerm}`);
+    console.log(
+      `passed term is: ${passedTerm} and currentTerm is ${this.state.currentSearch}`
+    );
     console.log(this.state.weatherJSON);
   };
 
@@ -49,12 +51,7 @@ class App extends React.Component {
     return (
       <div className="ui segments">
         {/* // have issue onUpSubmit should pass */}
-        <Header
-          onUpSubmit={(searchTerm) => {
-            this.setState({ currentSearch: searchTerm });
-            this.fetchWeather(this.state.currentSearch);
-          }}
-        />
+        <Header onUpSubmit={this.fetchWeather} />
         <WeatherDisplay
           data={this.state.weatherJSON}
           selectedUnit={this.selectedUnit}
