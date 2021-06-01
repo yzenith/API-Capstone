@@ -1,5 +1,5 @@
 import Axios from "axios";
-const KEY = "7fd64bea57746b38d50d97687525f21a";
+const KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export default Axios.create({
   baseURL: "https://api.openweathermap.org/data/2.5/weather",

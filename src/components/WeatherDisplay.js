@@ -160,7 +160,27 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
           Openweather API,
         </a>
         <span> Semantic UI,</span>
-        <span> Reactjs</span>
+        <span>
+          <a
+            href="https://reactjs.org/"
+            alt="Reactjs"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <i className="react icon"></i>React{" "}
+          </a>
+          and
+        </span>
+        <span>
+          <a
+            href="https://github.com/yzenith/API-Capstone/"
+            target="_blank"
+            rel="noreferrer"
+            alt="Github page"
+          >
+            <i className="github icon"> </i>
+          </a>
+        </span>
       </div>
     </div>
   );
