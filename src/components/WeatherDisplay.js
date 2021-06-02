@@ -28,7 +28,7 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
   }
 
   const weatherIcon =
-    "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+    "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
 
   const backgroundImage = `${window.location.origin}/images/${data.weather[0].description}.gif`;
   const backgroundImageCSS = `background-image: url("${backgroundImage}")`;
