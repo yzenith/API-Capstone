@@ -47,8 +47,9 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
   };
 
   const timestampToDatetime = (ts) => {
-    let dateTime = new Date();
-    return dateTime.toTimeString(ts);
+    console.log(`current timestamp is: ${ts}`);
+    let dateTime = new Date(ts * 1000); // unix timestamp
+    return dateTime.toLocaleTimeString("en-US");
   };
 
   return (
