@@ -46,6 +46,11 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
     }
   };
 
+  const timestampToDatetime = (ts) => {
+    let dateTime = new Date();
+    return dateTime.toTimeString(ts);
+  };
+
   return (
     <div className="ui segments" style={{ backgroundImageCSS }}>
       <div className="ui horizontal segments">
@@ -132,10 +137,10 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
           <div className="ui horizontal segments">
             <div className="ui center aligned segment">
               <span className="typeName">WindSpeed: </span>
-              <p>{data.wind.speed}</p>
+              <p>{data.wind.speed} mph</p>
             </div>
             <div className="ui center aligned segment">
-              <span className="typeName">WindDeg:</span>
+              <span className="typeName">Wind direction, degrees:</span>
               <p>{data.wind.deg}</p>
             </div>
           </div>
@@ -145,11 +150,11 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
           <div className="ui horizontal segments">
             <div className="ui center aligned segment">
               <span className="typeName">Sunrise: </span>
-              <p>{data.sys.sunrise}</p>
+              <p>{timestampToDatetime(data.sys.sunrise)}</p>
             </div>
             <div className="ui center aligned segment">
               <span className="typeName">Sunset: </span>
-              <p>{data.sys.sunset}</p>
+              <p>{timestampToDatetime(data.sys.sunset)}</p>
             </div>
           </div>
         </div>
@@ -157,9 +162,12 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
       <div className="ui center aligned segment">
         <span className="typeName">Powered By </span>
         <a href="https://openweathermap.org/" target="_blank" rel="noreferrer">
-          Openweather API,
+          Openweather API{" "}
         </a>
-        <span> Semantic UI,</span>
+        ,
+        <span>
+          <a href="https://semantic-ui.com/">Semantic UI</a>,
+        </span>
         <span>
           <a
             href="https://reactjs.org/"
@@ -178,6 +186,7 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
             rel="noreferrer"
             alt="Github page"
           >
+            {" "}
             <i className="github icon"> </i>
           </a>
         </span>
