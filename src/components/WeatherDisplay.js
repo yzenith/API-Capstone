@@ -30,10 +30,6 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
   const weatherIcon =
     "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
 
-  const backgroundImage = `${window.location.origin}/images/${data.weather[0].description}.gif`;
-  const backgroundImageCSS = `background-image: url("${backgroundImage}")`;
-  //console.log(backgroundImageCSS);
-
   // onclick to change the weatherUnit by button value
   const unitChange = (event) => {
     console.log(`current unit is: ${weatherUnit}`);
@@ -52,12 +48,14 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
     return dateTime.toLocaleTimeString("en-US");
   };
 
+  const flagClassName = data.sys.country.toLowerCase() + " flag";
+
   return (
-    <div className="ui segments" style={{ backgroundImageCSS }}>
+    <div className="ui segments">
       <div className="ui horizontal segments">
         <div className="ui center aligned segment">
           <p className="">
-            <i className="location arrow icon"></i>
+            <i className={flagClassName}></i>
             {data.name}, {data.sys.country}
           </p>
         </div>
