@@ -19,8 +19,6 @@ class App extends React.Component {
 
   selectedUnit = (selectedUnit) => {
     this.setState({ unit: selectedUnit });
-    console.log(this.state.unit);
-    console.log(this.state.currentSearch);
     this.fetchWeather(this.state.currentSearch);
   };
 
@@ -40,11 +38,6 @@ class App extends React.Component {
     this.setState({
       weatherJSON: data,
     });
-
-    console.log(
-      `passed term is: ${passedTerm} and currentTerm is ${this.state.currentSearch}`
-    );
-    console.log(this.state.weatherJSON);
   };
 
   render() {

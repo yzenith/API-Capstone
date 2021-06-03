@@ -3,7 +3,9 @@ import "./WeatherDisplay.css";
 
 const WeatherDisplay = ({ data, selectedUnit }) => {
   const [weatherUnit, setWeatherUnit] = useState("°F");
-  const [unitJSON] = useState({ "°F": "imperial", "°C": "metric" });
+  const [unitType] = useState({ "°F": "imperial", "°C": "metric" });
+  const [windUnit, setWindUnit] = useState("mph");
+  const [windType] = useState({ "°F": "mph", "°C": "meter/sec" });
 
   if (!data) {
     return (
@@ -27,24 +29,22 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
     );
   }
 
+  // for dynamic weather icon
   const weatherIcon =
     "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
 
   // onclick to change the weatherUnit by button value
-  const unitChange = (event) => {
-    console.log(`current unit is: ${weatherUnit}`);
-    console.log(`clicked target id is: ${event.target.id}`);
-    if (weatherUnit !== event.target.id) {
-      setWeatherUnit(event.target.id);
-      console.log(`the updated unit is: ${weatherUnit}`);
-      console.log(`pass up unit value as ${unitJSON[weatherUnit]}`);
-      selectedUnit(unitJSON[weatherUnit]);
+  const unitChange = async (id) => {
+    if (weatherUnit !== id) {
+      await setWeatherUnit(id); // setWeatherUnit is async call
+      await setWindUnit(windType[id]);
+      selectedUnit(unitType[id]);
     }
   };
 
+  // for sunset and sunrise since API return Unix timestamp
   const timestampToDatetime = (ts) => {
-    console.log(`current timestamp is: ${ts}`);
-    let dateTime = new Date(ts * 1000); // unix timestamp
+    let dateTime = new Date(ts * 1000);
     return dateTime.toLocaleTimeString("en-US");
   };
 
@@ -61,11 +61,19 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
         </div>
         <div className="ui center aligned segment">
           <div className="ui buttons">
-            <button className="ui positive button" id="°F" onClick={unitChange}>
+            <button
+              className="ui positive button"
+              id="°F"
+              onClick={(e) => unitChange(e.target.id)}
+            >
               °F
             </button>
             <div className="or"></div>
-            <button className="ui button" id="°C" onClick={unitChange}>
+            <button
+              className="ui button"
+              id="°C"
+              onClick={(e) => unitChange(e.target.id)}
+            >
               °C
             </button>
           </div>
@@ -136,7 +144,9 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
           <div className="ui horizontal segments">
             <div className="ui center aligned segment">
               <span className="typeName">WindSpeed: </span>
-              <p>{data.wind.speed} mph</p>
+              <p>
+                {data.wind.speed} {windUnit}
+              </p>
             </div>
             <div className="ui center aligned segment">
               <span className="typeName">Wind direction, degrees:</span>
