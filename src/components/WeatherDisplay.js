@@ -4,8 +4,8 @@ import "./WeatherDisplay.css";
 const WeatherDisplay = ({ data, selectedUnit }) => {
   const [weatherUnit, setWeatherUnit] = useState("°F");
   const [unitType] = useState({ "°F": "imperial", "°C": "metric" });
-  const [windUnit, setWindUnit] = useState("mph");
-  const [windType] = useState({ "°F": "mph", "°C": "meter/sec" });
+  const [windUnit, setWindUnit] = useState("mile/hour");
+  const [windType] = useState({ "°F": "mile/hour", "°C": "meter/sec" });
 
   if (!data) {
     return (
@@ -62,7 +62,7 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
         <div className="ui center aligned segment">
           <div className="ui buttons">
             <button
-              className="ui positive button"
+              className="ui positive button F"
               id="°F"
               onClick={(e) => unitChange(e.target.id)}
             >
@@ -70,7 +70,7 @@ const WeatherDisplay = ({ data, selectedUnit }) => {
             </button>
             <div className="or"></div>
             <button
-              className="ui button"
+              className="ui positive button C"
               id="°C"
               onClick={(e) => unitChange(e.target.id)}
             >
